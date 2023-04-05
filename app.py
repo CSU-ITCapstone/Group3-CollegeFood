@@ -14,6 +14,9 @@ app = Flask(__name__)
 def home():
     return "Columbus State Nutrition"
 
+# when you go to this url everything in the function is run. 
+# It may be better to to get the data setup outside of the function
+# maybe we can have an html template that is just for displaying the data and render it on whichever page we need it.
 @app.route("/apiTesting")
 def api_testing():
 
@@ -27,9 +30,12 @@ def api_testing():
     # stores the data in a dictionary
     dict = json.loads(data)
 
-    # calles the html file apiTesting.html not sure what is happening after that yet. UPDATE 
-    # It doesn't give an error yet but it will load just with nothing on screen
-    return render_template ("apiTesting.html", parsed = dict["parsed"])
+
+    # calls the html file apiTesting.html, then tells the html file that the variable apidata
+    # inside of the file is equal to the dectionary section "hints". Using hints allows us to see
+    # all the foods related to what was searched
+    return render_template("apiTesting.html", apidata = dict["hints"])
+    
 
 
 if __name__ == '__main__':
