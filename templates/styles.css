@@ -1,15 +1,34 @@
+body{
+    margin: 0;
+}
+
 .red-box{
     background-color:crimson;
     width: 100%;
-    height: 70px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
+    height: 90px;
+    position: relative;
+    text-align: left;
 }
 
 .red-box h1{
     margin: 0;
     color: white;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
      
+}
+
+.red-box img{
+
+    max-width: 80%;
+    max-height: 80%;
+    position: absolute;
+    left: 10px;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+
+
 }
