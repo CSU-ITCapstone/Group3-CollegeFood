@@ -12,7 +12,8 @@ app = Flask(__name__)
 
 @app.route("/")
 def home():
-    return "Columbus State Nutrition"
+    # playing around with the html templates nyeisha worked on
+    return render_template("index.html")
 
 # when you go to this url everything in the function is run. 
 # It may be better to to get the data setup outside of the function
