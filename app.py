@@ -7,6 +7,9 @@
 from flask import Flask
 from flask import render_template
 import urllib.request, json
+# for taking the data from the api
+import requests 
+
 
 app = Flask(__name__)
 
@@ -22,20 +25,14 @@ def home():
 def api_testing():
 
     # URL for connecting to Step 1 of the Api, includes app id and api key
-    url = "https://api.edamam.com/api/food-database/v2/parser?app_id=d84791b8&app_key=498065e3b390e613e11cc5d5424eebce"
+    nutritionParser = requests.get("https://api.edamam.com/api/food-database/v2/parser?app_id=d84791b8&app_key=498065e3b390e613e11cc5d5424eebce&ingr=Cheese&brand=walmart&nutrition-type=cooking")
 
-    # opens the URL
-    response = urllib.request.urlopen(url)
-    # reads the data
-    data = response.read()
-    # stores the data in a dictionary
-    dict = json.loads(data)
-
+    data = nutritionParser.json()
 
     # calls the html file apiTesting.html, then tells the html file that the variable apidata
     # inside of the file is equal to the dectionary section "hints". Using hints allows us to see
     # all the foods related to what was searched
-    return render_template("apiTesting.html", apidata = dict["hints"])
+    return render_template("apiTesting.html", apidata = data["hints"])
     
 
 
