@@ -1,4 +1,4 @@
-var flipCard = document.getElementById('myFlipCard' + myFlipCard(2));
+var flipCard = document.getElementById('myFlipCard');
 
 flipCard.addEventListener('click', function(){
     flipCard.classList.toggle('flip')
