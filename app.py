@@ -4,12 +4,10 @@
 # and find recipes based on their selected filters.
 
 # Imports
-from flask import Flask
-from flask import render_template
+from flask import Flask, render_template, request
 import urllib.request, json
 # for taking the data from the api
 import requests 
-
 
 app = Flask(__name__)
 
@@ -21,11 +19,11 @@ def home():
 # when you go to this url everything in the function is run. 
 # It may be better to to get the data setup outside of the function
 # maybe we can have an html template that is just for displaying the data and render it on whichever page we need it.
-@app.route("/apiTesting")
+@app.route("/apiTesting", methods = ['POST', 'GET'])
 def api_testing():
 
     # URL for connecting to Step 1 of the Api, includes app id and api key
-    nutritionParser = requests.get("https://api.edamam.com/api/food-database/v2/parser?app_id=d84791b8&app_key=498065e3b390e613e11cc5d5424eebce&ingr=Cheese&brand=walmart&nutrition-type=cooking")
+    nutritionParser = requests.get("https://api.edamam.com/api/food-database/v2/parser?app_id=d84791b8&app_key=498065e3b390e613e11cc5d5424eebce")
 
     data = nutritionParser.json()
 
@@ -33,7 +31,7 @@ def api_testing():
     # inside of the file is equal to the dectionary section "hints". Using hints allows us to see
     # all the foods related to what was searched
     return render_template("apiTesting.html", apidata = data["hints"])
-    
+
 
 
 if __name__ == '__main__':
