@@ -7,7 +7,7 @@
 from flask import Flask, render_template, request
 import urllib.request, json
 # for taking the data from the api
-import requests 
+from requests import request, Session
 
 app = Flask(__name__)
 
@@ -20,12 +20,40 @@ def home():
 # It may be better to to get the data setup outside of the function
 # maybe we can have an html template that is just for displaying the data and render it on whichever page we need it.
 @app.route("/apiTesting", methods = ['POST', 'GET'])
+# def userInput():
+#     #retriving the user input from the html file
+#     if request.method == "POST":
+#         # the input is stored as food = searchedFood
+#         global searched_food
+#         searched_food = request.form.get("searchedFood")
+        
+#     return render_template("form.html")
+
 def api_testing():
 
     # URL for connecting to Step 1 of the Api, includes app id and api key
-    nutritionParser = requests.get("https://api.edamam.com/api/food-database/v2/parser?app_id=d84791b8&app_key=498065e3b390e613e11cc5d5424eebce")
+    url = "https://api.edamam.com/api/food-database/v2/parser?"
+    paramaters = {
+        'app_id' : 'd84791b8',
+        'app_key' : '498065e3b390e613e11cc5d5424eebce',
+        'ingr' : 'cheese', #change cheese to a varible of the users input
+        'nutrition-type' : 'cooking'
+    }
+    headers = {
+        'Accepts' : 'application/json' # maybe just accept. no s
+    }
 
-    data = nutritionParser.json()
+    session = Session()
+    session.headers.update(headers)
+
+    parserResponse = session.get(url, params = paramaters)
+    data = parserResponse.json()
+
+
+
+    #nutritionParser = requests.get("https://api.edamam.com/api/food-database/v2/parser?app_id=d84791b8&app_key=498065e3b390e613e11cc5d5424eebce&nutrition-type=cooking&ingr{}".format(searched_food))
+
+    #data = nutritionParser.json()
 
     # calls the html file apiTesting.html, then tells the html file that the variable apidata
     # inside of the file is equal to the dectionary section "hints". Using hints allows us to see
