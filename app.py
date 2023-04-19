@@ -33,7 +33,6 @@ def api_testing():
     return render_template("apiTesting.html", apidata = data["hints"])
 
 
-
 if __name__ == '__main__':
     app.run(debug = True)
 
