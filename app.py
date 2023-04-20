@@ -7,7 +7,7 @@
 from flask import Flask, render_template, request
 import urllib.request, json
 # for taking the data from the api
-from requests import request, Session
+from requests import Session #request,
 
 app = Flask(__name__)
 
@@ -16,51 +16,119 @@ def home():
     # playing around with the html templates nyeisha worked on
     return render_template("index.html")
 
+
+@app.route("/searchFood", methods = ['POST', 'GET'])
+def search_food():
+    #retriving the user input from the html file
+    if request.method == "GET":
+        # the input is stored as food = searchedFood
+        
+
+        return render_template("form.html")
+
 # when you go to this url everything in the function is run. 
 # It may be better to to get the data setup outside of the function
 # maybe we can have an html template that is just for displaying the data and render it on whichever page we need it.
 @app.route("/apiTesting", methods = ['POST', 'GET'])
-# def userInput():
-#     #retriving the user input from the html file
-#     if request.method == "POST":
-#         # the input is stored as food = searchedFood
-#         global searched_food
-#         searched_food = request.form.get("searchedFood")
-        
-#     return render_template("form.html")
-
 def api_testing():
 
-    # URL for connecting to Step 1 of the Api, includes app id and api key
-    url = "https://api.edamam.com/api/food-database/v2/parser?"
-    paramaters = {
-        'app_id' : 'd84791b8',
-        'app_key' : '498065e3b390e613e11cc5d5424eebce',
-        'ingr' : 'cheese', #change cheese to a varible of the users input
-        'nutrition-type' : 'cooking'
-    }
-    headers = {
-        'Accepts' : 'application/json' # maybe just accept. no s
-    }
+    if request.method == "POST":
 
-    session = Session()
-    session.headers.update(headers)
+        # Take the user input from the html form and store it
+        searched_food = request.form.get("searchedFood")
 
-    parserResponse = session.get(url, params = paramaters)
-    data = parserResponse.json()
+        # The API URL for connecting to Step 1, no api key or app id
+        parser_url = "https://api.edamam.com/api/food-database/v2/parser?"
 
+        # These are the paramaters the API takes. ingr is the food the the API searches
+        paramaters = {
+            'app_id' : 'd84791b8',
+            'app_key' : '498065e3b390e613e11cc5d5424eebce',
+            'ingr' : searched_food,
+            'nutrition-type' : 'cooking'
+        }
+        headers = {
+            'Accepts' : 'application/json'
+        }
 
+        session = Session()
+        session.headers.update(headers)
+        parser_Response = session.get(parser_url, params = paramaters)
+        text = parser_Response.text
+        global parser_data
+        parser_data = json.loads(text)
 
-    #nutritionParser = requests.get("https://api.edamam.com/api/food-database/v2/parser?app_id=d84791b8&app_key=498065e3b390e613e11cc5d5424eebce&nutrition-type=cooking&ingr{}".format(searched_food))
+        # Take the food id
+        food_id = parser_data['hints']['food']['foodId']
 
-    #data = nutritionParser.json()
+        # take the uri 
+        measures = parser_data['hints']['measure']['uri']
 
-    # calls the html file apiTesting.html, then tells the html file that the variable apidata
-    # inside of the file is equal to the dectionary section "hints". Using hints allows us to see
-    # all the foods related to what was searched
-    return render_template("apiTesting.html", apidata = data["hints"])
+        # this is a paramater that is passed to the api as json. 
+        nutrition_ingredients = {
+                      "ingredients": [
+                        {
+                          "quantity": 1, # quantity of one because we are giving the nutrients of one serving of food
+                          "measureURI": measures,
+                          "qualifiers": [
+                            ""
+                          ],
+                          "foodId": food_id
+                        }
+                      ]
+                    }
+
+        # Setup for the second part of the api call, nutrients
+        nutrients_url = "https://api.edamam.com/api/food-database/v2/nutrients"
+
+        nutrition_paramaters = {
+            'app_id' : 'd84791b8',
+            'app_key' : '498065e3b390e613e11cc5d5424eebce',
+            'ingredients' : nutrition_ingredients
+        }
+        headers = {
+            'Accepts' : 'application/json'
+        }
+
+        nutrition_response = session.get(nutrients_url, params = nutrition_paramaters)
+        nutrition_data = nutrition_response.json()
+
+        calories = nutrition_data["calories"]
+        weight = nutrition_data["totalWeight"]
+
+        # calls the html file apiTesting.html, then tells the html file that the variable apidata
+        # inside of the file is equal to the dectionary section "hints". Using hints allows us to see
+        # all the foods related to what was searched
+        return render_template("apiTesting.html", apidata = parser_data["hints"])
 
 
 if __name__ == '__main__':
     app.run(debug = True)
 
+
+###############################testing########################################
+
+
+parser_url = "https://api.edamam.com/api/food-database/v2/parser?"
+
+paramaters = {
+            'app_id' : 'd84791b8',
+            'app_key' : '498065e3b390e613e11cc5d5424eebce',
+            'ingr' : "chicken",
+            'nutrition-type' : 'cooking'
+        }
+headers = {
+            'Accepts' : 'application/json'
+        }
+
+
+session = Session()
+session.headers.update(headers)
+parser_Response = session.get(parser_url, params = paramaters)
+text = parser_Response.text
+global parser_data
+parser_data = json.loads(text)
+
+print(parser_data)
+print(type(parser_data))
+print(parser_data['parsed'][0])

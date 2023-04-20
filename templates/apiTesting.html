@@ -6,6 +6,11 @@
 
 <body>
     <h1>Please put data below this</h1>
+
+    <h2>There are {calories} calories in {weight} grams of the food.</h2>
+    <h2>The </h2>
+
+
     <div>
     {% block content %}
         <!--This is a loop that takes the api data that was stored in dict,
@@ -19,6 +24,7 @@
         {% for hints in apidata %}
             <li>{{hints.food.label}}</li>
         {% endfor %}
+
     {% endblock %}
     </div>
 

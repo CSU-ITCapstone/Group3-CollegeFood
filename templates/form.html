@@ -1,4 +1,5 @@
-<form action = url_for(apiTesting) method="post"></form>
-        <label for="firstname">First Name:</label>
-        <input type="text" id="food" food="searchedFood" placeholder="Search Food">
-        <button type="submit">Submit</button>
+<form action = apiTesting method="post">
+        <label for="firstname">Food:</label>
+        <input type="text" id="food" name="searchedFood" placeholder="Search Food">
+        <button name="foodSubmit" type="submit" value="Submit">Submit</button>
+</form>
