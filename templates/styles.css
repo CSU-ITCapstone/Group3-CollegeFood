@@ -37,7 +37,6 @@ body{
 .card-container {
   display: flex;
   justify-content: space-between;
-  margin-right: 40%;
   margin-top: 20px;
 }
 
@@ -46,20 +45,6 @@ body{
   height: 300px;
   perspective: 1000px;
 }
-
-/* #myFlipCardContainer{
-  margin-top: 20px;
-  display: inline-block;
-  
-
-}
-
-
-#myFlipCardContainer2 {
-  display: inline-block;
-  margin-right: 20px;
-} */
-
 
 
 .flip-card {
