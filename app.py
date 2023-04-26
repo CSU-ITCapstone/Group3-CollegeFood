@@ -48,21 +48,23 @@ def api_testing():
             'nutrition-type' : 'cooking'
         }
         headers = {
-            'Accepts' : 'application/json'
+            'Accepts' : 'application/json',
+            'content-type' : 'application/json'
         }
 
         session = Session()
         session.headers.update(headers)
-        parser_Response = session.get(parser_url, params = paramaters)
+        parser_Response = session.get(parser_url, headers = headers, params = paramaters)
         text = parser_Response.text
         global parser_data
         parser_data = json.loads(text)
 
         # Take the food id
-        food_id = parser_data['hints']['food']['foodId']
+        food_id = parser_data['hints'][0]['food']['foodId']
 
         # take the uri 
-        measures = parser_data['hints']['measure']['uri']
+        measures = parser_data['hints'][0]['measures'][0]['uri']
+
 
         # this is a paramater that is passed to the api as json. 
         nutrition_ingredients = {
@@ -81,54 +83,39 @@ def api_testing():
         # Setup for the second part of the api call, nutrients
         nutrients_url = "https://api.edamam.com/api/food-database/v2/nutrients"
 
+        # The params for the second step are just the id and key
         nutrition_paramaters = {
             'app_id' : 'd84791b8',
-            'app_key' : '498065e3b390e613e11cc5d5424eebce',
-            'ingredients' : nutrition_ingredients
+            'app_key' : '498065e3b390e613e11cc5d5424eebce'
         }
-        headers = {
-            'Accepts' : 'application/json'
-        }
-
-        nutrition_response = session.get(nutrients_url, params = nutrition_paramaters)
+        
+        # here we POST our json data, nutrition_ingredients, to the API. it returns with more json data.
+        nutrition_response = session.post(nutrients_url, headers = headers, params = nutrition_paramaters, json = nutrition_ingredients)
         nutrition_data = nutrition_response.json()
 
-        calories = nutrition_data["calories"]
-        weight = nutrition_data["totalWeight"]
+        # Here is the data stored in varibles for easy access
+        measure_label = parser_data['hints'][0]['measures'] # Loop through this in html using 
+        food_image = parser_data['hints'][0]['food']['image']
+        calories = nutrition_data['calories']
+        weight = nutrition_data['totalWeight']
+        diet_labels = nutrition_data['dietLabels']
+        health_labels = nutrition_data['healthLabels']
+        cautions = nutrition_data['cautions']
+        total_nutrients = nutrition_data['totalNutrients']
+
 
         # calls the html file apiTesting.html, then tells the html file that the variable apidata
         # inside of the file is equal to the dectionary section "hints". Using hints allows us to see
-        # all the foods related to what was searched
-        return render_template("apiTesting.html", apidata = parser_data["hints"])
+        # all the foods related to what was searched. These are all for testing
+        return render_template("apiTesting.html",
+                               measure_data = measure_label,
+                               apidata = parser_data["hints"],
+                               nutrition_data = nutrition_data,
+                               calories = calories,
+                               weight = weight,
+                               searched_food = searched_food,
+                               food_image = food_image)
 
 
 if __name__ == '__main__':
     app.run(debug = True)
-
-
-###############################testing########################################
-
-
-parser_url = "https://api.edamam.com/api/food-database/v2/parser?"
-
-paramaters = {
-            'app_id' : 'd84791b8',
-            'app_key' : '498065e3b390e613e11cc5d5424eebce',
-            'ingr' : "chicken",
-            'nutrition-type' : 'cooking'
-        }
-headers = {
-            'Accepts' : 'application/json'
-        }
-
-
-session = Session()
-session.headers.update(headers)
-parser_Response = session.get(parser_url, params = paramaters)
-text = parser_Response.text
-global parser_data
-parser_data = json.loads(text)
-
-print(parser_data)
-print(type(parser_data))
-print(parser_data['parsed'][0])

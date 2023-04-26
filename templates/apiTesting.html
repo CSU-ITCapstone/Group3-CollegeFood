@@ -7,8 +7,11 @@
 <body>
     <h1>Please put data below this</h1>
 
-    <h2>There are {calories} calories in {weight} grams of the food.</h2>
+    <h2>There are {{calories}} calories in {{weight}} grams of {{searched_food}}.</h2>
     <h2>The </h2>
+    <li>{{measures}}</li>
+
+    <img src = food_image>
 
 
     <div>
@@ -16,8 +19,8 @@
         <!--This is a loop that takes the api data that was stored in dict,
         goes through the section parsed in the JSON data, looks for the food section,
         then goes through the food section and displays the item label.--> 
-        {% for parsed in apidata %}
-            <li>{{parsed.food.label}}</li>
+        {% for measures in measure_data %}
+            <li>{{measures.label}}</li>
         {% endfor %}
         
         <!--This does the same thing except it goes through the hint section-->
