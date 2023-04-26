@@ -21,15 +21,12 @@ def home():
 def search_food():
     #retriving the user input from the html file
     if request.method == "GET":
-        # the input is stored as food = searchedFood
-        
-
         return render_template("form.html")
 
 # when you go to this url everything in the function is run. 
 # It may be better to to get the data setup outside of the function
 # maybe we can have an html template that is just for displaying the data and render it on whichever page we need it.
-@app.route("/apiTesting", methods = ['POST', 'GET'])
+@app.route("/searchFood/returnedFood", methods = ['POST', 'GET'])
 def api_testing():
 
     if request.method == "POST":
@@ -115,6 +112,11 @@ def api_testing():
                                weight = weight,
                                searched_food = searched_food,
                                food_image = food_image)
+    
+
+    @app.route("/searchFood/returnedFood/theFood")
+    def theFood():
+        return "place food data here"
 
 
 if __name__ == '__main__':
