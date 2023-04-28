@@ -8,6 +8,7 @@ from flask import Flask, render_template, request
 import urllib.request, json
 # for taking the data from the api
 from requests import Session #request,
+import pandas as pd
 
 app = Flask(__name__)
 
@@ -53,7 +54,6 @@ def api_testing():
         session.headers.update(headers)
         parser_Response = session.get(parser_url, headers = headers, params = paramaters)
         text = parser_Response.text
-        global parser_data
         parser_data = json.loads(text)
 
         # Take the food id
@@ -90,6 +90,11 @@ def api_testing():
         nutrition_response = session.post(nutrients_url, headers = headers, params = nutrition_paramaters, json = nutrition_ingredients)
         nutrition_data = nutrition_response.json()
 
+        # Flatten the json file for easy searching
+        df = pd.json_normalize(nutrition_data, sep = '_')
+        nutrition_data = df.to_dict(orient = 'records')[0]
+
+
         # Here is the data stored in varibles for easy access
         measure_label = parser_data['hints'][0]['measures'] # Loop through this in html using 
         food_image = parser_data['hints'][0]['food']['image']
@@ -98,7 +103,8 @@ def api_testing():
         diet_labels = nutrition_data['dietLabels']
         health_labels = nutrition_data['healthLabels']
         cautions = nutrition_data['cautions']
-        total_nutrients = nutrition_data['totalNutrients']
+        food_label = nutrition_data['ingredients']
+        #total_nutrients = nutrition_data['totalNutrients']
 
 
         # calls the html file apiTesting.html, then tells the html file that the variable apidata
@@ -106,16 +112,20 @@ def api_testing():
         # all the foods related to what was searched. These are all for testing
         return render_template("apiTesting.html",
                                measure_data = measure_label,
+                               df = df,
                                apidata = parser_data["hints"],
                                nutrition_data = nutrition_data,
-                               calories = calories,
-                               weight = weight,
+                               #calories = calories,
+                               #weight = weight,
                                searched_food = searched_food,
-                               food_image = food_image)
+                               food_image = food_image,
+                               food_label = food_label
+                               )
     
 
-    @app.route("/searchFood/returnedFood/theFood")
+    @app.route("/searchFood/returnedFood/<the_food>")
     def theFood():
+        #the_food = food_label
         return "place food data here"
 
 

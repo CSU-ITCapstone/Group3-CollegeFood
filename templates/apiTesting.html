@@ -9,7 +9,9 @@
 
     <h2>There are {{calories}} calories in {{weight}} grams of {{searched_food}}.</h2>
     <h2>The </h2>
-    <li>{{measures}}</li>
+    <li>{{nutrition_data}}</li>
+    <li>{{df}}</li>
+    <li>{{food_label}}</li>
 
     <img src = "food_image">
 
@@ -20,7 +22,7 @@
         goes through the section parsed in the JSON data, looks for the food section,
         then goes through the food section and displays the item label.--> 
         {% for measures in measure_data %}
-            <li><a href = "">Click here to search food</a>{{measures.label}}</li>
+            <li><a href = "searchFood/returnedFood/<the_food>">Click here to search food</a>{{measures.label}}</li>
         {% endfor %}
         
         <!--This does the same thing except it goes through the hint section-->
