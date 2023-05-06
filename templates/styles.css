@@ -1,7 +1,10 @@
 body{
     margin: 0;
     background-color: rgb(17, 48, 83);
-}
+    
+} 
+
+
 
 .red-box{
     background-color:crimson;
@@ -36,6 +39,7 @@ body{
 
 
 .card-container {
+  
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
@@ -53,7 +57,7 @@ body{
   margin-top: 15%;
   justify-content: space-between;
   flex-wrap: wrap;
-  margin-bottom: 5%;
+  margin-bottom: 20px;
 }
 
 .flip-card {
@@ -100,7 +104,3 @@ body{
     color: white;
     transform: rotateY(180deg);
   }
-
-/*.flip-card-2{
-  margin: 0 auto;
-} */
