@@ -34,17 +34,37 @@ body{
 
 }
 
-.card-container {
+ /* .card-container {
   display: flex;
   justify-content: space-between;
   margin-top: 20px;
+} */
+
+.card-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
 }
+
 
 .card {
   width: 200px;
   height: 300px;
   perspective: 1000px;
 }
+
+#second-card-container {
+  margin-top: 20px;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+/* #second-card-containter {
+  display: block;
+  justify-content: space-between;
+  margin-bottom: 20px;
+} */
+
 
 
 .flip-card {
