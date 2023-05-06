@@ -1,0 +1,15 @@
+<html lang="en">
+
+    <li>Testing text</li>
+    <li>{{nutrition_data}}</li>
+
+    {% block content %}
+
+        {% for values in nutrition_data %}
+            {{values}}
+        {% endfor %}
+
+
+    {% endblock %}
+
+</html>

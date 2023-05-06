@@ -1,0 +1,15 @@
+<html lang="en">
+
+    <li>Testing text</li>
+    <li>{{clicked_food}}</li>
+
+    {% block content %}
+
+        {% for measures in food_measures_array %}
+        <li><a href = "/searchFood/returnedFood/foodMeasures/foodNutrition?clickedMeasure={{measures}}">{{measures}}</a></li>
+        {% endfor %}
+
+
+    {% endblock %}
+
+</html>

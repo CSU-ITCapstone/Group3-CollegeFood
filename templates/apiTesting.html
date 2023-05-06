@@ -7,33 +7,22 @@
 <body>
     <h1>Please put data below this</h1>
 
-    <h2>There are {{calories}} calories in {{weight}} grams of {{searched_food}}.</h2>
-    <h2>The </h2>
-    <li>{{nutrition_data}}</li>
-    <li>{{df}}</li>
-    <li>{{food_label}}</li>
-
-    <img src = "food_image">
-
+    <h2>There are {{calories}} calories in {{weight}} grams of {{food_label}}.</h2>
+    <li>parser_data</li>
+    <li>{{food_label_array}}</li>
 
     <div>
     {% block content %}
-        <!--This is a loop that takes the api data that was stored in dict,
-        goes through the section parsed in the JSON data, looks for the food section,
-        then goes through the food section and displays the item label.--> 
-        {% for measures in measure_data %}
-            <li><a href = "searchFood/returnedFood/<the_food>">Click here to search food</a>{{measures.label}}</li>
+
+        {% for labels in food_label_array %}
+        <li><a href = "/searchFood/returnedFood/foodMeasures?clickedFood={{labels}}">{{labels}}</a></li>
         {% endfor %}
-        
-        <!--This does the same thing except it goes through the hint section-->
-        {% for hints in apidata %}
-            <li>{{hints.food.label}}</li>
-        {% endfor %}
+
+
+
 
     {% endblock %}
     </div>
-
-    
 
 </body>
 
