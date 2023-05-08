@@ -14,8 +14,8 @@ body{
 
 .btn {
   position: absolute;
-    left: 45%;
-    top: 70%;
+  left: 45%;
+  top: 70%;
 }
 
 .red-box h1{
@@ -43,7 +43,6 @@ body{
 
 
 .card-container {
-  
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
@@ -99,7 +98,8 @@ body{
   /* Styling the front side */
   .flip-card-front {
     background-color: #bbb;
-    color: black;
+    color: white;
+  
   }
   
   /* Styling the back side */
@@ -113,6 +113,7 @@ body{
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    color: white;
 }
 
   .orig-card {
@@ -123,4 +124,19 @@ body{
     margin: 10px; /* Add some margin around the card */
     margin-top: 15%;
     margin-bottom: 20px;
+    position: relative;
   }
+
+  .orig-card button {
+    margin-top: 60px;
+    left: 70px;
+    width: 120px;
+    height: 40px;
+  }
+
+
+  /*this centers the text for the last 3 containers */
+  /* .container h4 {
+    text-align: center;
+  } */
+
