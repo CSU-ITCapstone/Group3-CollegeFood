@@ -18,7 +18,6 @@ def home():
     # playing around with the html templates nyeisha worked on
     return render_template("index.html")
 
-
 @app.route("/searchFood", methods = ['POST', 'GET'])
 def search_food():
     #retriving the user input from the html file

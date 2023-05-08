@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 <html lang="en">
-  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='/CSS/styles.css')}}" />
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css')}}" />
   <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -18,17 +18,13 @@
     </head>
 
     <body>
-<<<<<<< HEAD
         <div class="red-box">
         <h1> Quick and Easy College Meals </h1>
         <img src="/templates/CSU_Logo_Primary1.png">
         <button type="button" class="btn btn-light">Learn More</button>
-=======
       <div class="red-box">
         <h1> Columbus State University Nutrition </h1>
         <img src="/templates/CSU_Logo_Primary1.png">
-        <a href = "{{ url_for('search_food') }}">Click here to search food</a> 
->>>>>>> main
       </div>
       
 
@@ -43,10 +39,10 @@
                 <a class="nav-link active" aria-current="page" href="#">Home</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Recipes</a>
+                <a class="nav-link" href="#">Recipes</a>  <!-- Link the the recipe page-->
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Nutrition Facts</a>
+                <a class="nav-link" href="/searchFood">Nutrition Facts</a> <!-- Link to nutrition facts-->
               </li>
             </ul>
           </div>
