@@ -46,46 +46,59 @@
 
         <p style="color: white;">{{ingredients_var}}</p>
 
-        <div class="returned-food">
-            {% block nutrients %}
-                {% for nutrients in totalNutrients %}
-                    <p>{{nutrients}}</p>
-                {% endfor %}
-                
-            {% endblock %}
+        <div class="justify">
+
+          <div class="returned-food">
+            <h4>Nutrients values measurements</h4>
+              {% block nutrients %}
+                  {% for nutrients in totalNutrients %}
+                      <p>{{nutrients}}</p>
+                  {% endfor %}
+                  
+              {% endblock %}
+          </div>
+  
+          <div class="returned-food">
+            <h4>Daily percent of nutrients</h4>
+              {% block daily %}
+                  {% for daily in totalDaily %}
+                      <p>{{daily}}</p>
+                  {% endfor %}
+              {% endblock %}
+          </div>
+  
+          <div class="returned-food">
+            <h4>Health Labels</h4>
+              {% block health %}
+                  {% for health in healthLables %}
+                      <p>{{health}}</p>
+                  {% endfor %}
+              {% endblock %}
+          </div>
+  
+          <div class="returned-food">
+            <h4>Diet Labels</h4>
+              {% block diet %}
+                  {% for diet in dietlabels %}
+                      <p>{{diet}}</p>
+                  {% endfor %}
+              {% endblock %}
+          </div>
+  
+          <div class="returned-food">
+            <h4>Cautions</h4>
+              {% block cautions %}
+                  {% for a_caution in cautions %}
+                      <p>{{a_caution}}</p>
+                  {% endfor %}
+              {% endblock %}
+          </div>
+
+
+
         </div>
 
-        <div class="returned-food">
-            {% block daily %}
-                {% for daily in totalDaily %}
-                    <p>{{daily}}</p>
-                {% endfor %}
-            {% endblock %}
-        </div>
-
-        <div class="returned-food">
-            {% block health %}
-                {% for health in healthLables %}
-                    <p>{{health}}</p>
-                {% endfor %}
-            {% endblock %}
-        </div>
-
-        <div class="returned-food">
-            {% block diet %}
-                {% for diet in dietlabels %}
-                    <p>{{diet}}</p>
-                {% endfor %}
-            {% endblock %}
-        </div>
-
-        <div class="returned-food">
-            {% block cautions %}
-                {% for a_caution in cautions %}
-                    <p>{{a_caution}}</p>
-                {% endfor %}
-            {% endblock %}
-        </div>
+      
 
 
       </div>

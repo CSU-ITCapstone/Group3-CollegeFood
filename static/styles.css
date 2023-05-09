@@ -18,6 +18,8 @@
 }
 
 .returned-food {
+  display: table-cell;
+  vertical-align: middle;
   line-height: 1;
   margin: auto;
   text-align: center;
@@ -26,6 +28,13 @@
   min-height: 500px;
   width: fit-content;
   height: auto;
+  
+  
+}
+
+.justify {
+  display: flex;
+
 }
 
 .red-box{
