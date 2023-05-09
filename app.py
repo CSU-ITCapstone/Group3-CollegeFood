@@ -4,7 +4,7 @@
 # and find recipes based on their selected filters.
 
 # Imports
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect
 import json
 from flatten_json import flatten
 # for taking the data from the api
@@ -14,6 +14,10 @@ import pandas as pd
 app = Flask(__name__)
 
 @app.route("/")
+def redirect_to_home():
+    return redirect('/home')
+
+@app.route("/home")
 def home():
     # playing around with the html templates nyeisha worked on
     return render_template("index.html")
@@ -167,6 +171,77 @@ def get_nutrition_data(uri, food_Id):
 
     return nutrition_data
 
+# creates array with the label quantity and units for the nutrition values, goes in 3's
+# Args: data, use nutrition_data
+def create_totalNutrients_array(data):
+
+    totalNutrients_array = []
+    totalNutrients_array.clear()
+    for key, label in data.items():
+        if "totalNutrients" in key:
+            totalNutrients_array.append(label)
+
+    return totalNutrients_array
+
+# Args: data, use nutrition_data
+def create_dietLabels_array(data):
+
+    dietLabels_array = []
+    dietLabels_array.clear()
+    for key, label in data.items():
+        if "dietLabels" in key:
+            dietLabels_array.append(label)
+
+    return dietLabels_array
+
+
+# Args: data, use nutrition_data
+def create_healthLabels_array(data):
+
+    healthLabels_array = []
+    healthLabels_array.clear()
+    for key, label in data.items():
+        if "healthLabels" in key:
+            healthLabels_array.append(label)
+
+    return healthLabels_array
+
+
+# Args: data, use nutrition_data
+def create_cautions_array(data):
+
+    cautions_array = []
+    cautions_array.clear()
+    for key, label in data.items():
+        if "cautions" in key:
+            cautions_array.append(label)
+
+    return cautions_array
+
+
+# Args: data, use nutrition_data
+def create_totalDaily_array(data):
+
+    totalDaily_array = []
+    totalDaily_array.clear()
+    for key, label in data.items():
+        if "totalDaily" in key:
+            totalDaily_array.append(label)
+
+    return totalDaily_array
+
+
+def create_ingredients_var(data):
+
+    ingredients = ""
+
+    for key, label in data.items():
+        if "ingredients_0_parsed_0_foodContentsLabel" in key:
+            ingredients = label
+        return ingredients
+    else:
+        return "No ingredients for this food"
+
 
 @app.route("/searchFood/returnedFood", methods = ['POST', 'GET'])
 def returnedFood_main():
@@ -175,7 +250,7 @@ def returnedFood_main():
     global food_label_array
     food_label_array = create_label_array(parser_data)
     
-    return render_template("apiTesting.html", 
+    return render_template("returnedFood.html", 
                         parser_data = parser_data,
                         food_label_array = food_label_array                            
                         )
@@ -195,7 +270,30 @@ def foodNutrition_main():
 
     nutrition_data = get_nutrition_data(measure_uri, food_Id)
 
-    return render_template("foodNutrition.html", nutrition_data = nutrition_data)
+    # sort the different kinds of data in to their own arrays
+    totalNutrients = create_totalNutrients_array(nutrition_data)
+    totalDaily = create_totalDaily_array(nutrition_data)
+    healthLabels = create_healthLabels_array(nutrition_data)
+    dietLabels = create_dietLabels_array(nutrition_data)
+    cautions = create_cautions_array(nutrition_data)
+    ingredients_var = create_ingredients_var(nutrition_data)
+
+
+    return render_template("foodNutrition.html", 
+                           nutrition_data = nutrition_data,
+                           totalNutrients = totalNutrients,
+                           totalDaily = totalDaily,
+                           healthLabels = healthLabels,
+                           dietLabels = dietLabels,
+                           cautions = cautions,
+                           ingredients_var = ingredients_var
+                           )
+
+
+@app.route("/recipes")
+def recipes():
+    return render_template("recipes.html")
+
 
 if __name__ == '__main__':
     app.run(debug = True)

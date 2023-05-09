@@ -1,8 +1,32 @@
-body{
-    margin: 0;
-    background-color: rgb(17, 48, 83);
-    
+.body{
+  background-color: rgb(17, 48, 83);
+  min-height: 100%;
+  min-width: 1024px;
+  width: 100%;
+  height: auto;
+  top: 0;
+  left: 0;
+  position: absolute;
 } 
+.form{
+  height: 700px;
+  margin: 0;
+  color: white;
+  text-align: center;
+  left: 50%;
+  top: 50%;
+}
+
+.returned-food {
+  line-height: 1;
+  margin: auto;
+  text-align: center;
+  background-color: white;
+  min-width: 150px;
+  min-height: 500px;
+  width: fit-content;
+  height: auto;
+}
 
 .red-box{
     background-color:crimson;
@@ -10,6 +34,13 @@ body{
     height: 180px;
     position: relative;
     text-align: left;
+}
+.csu-logo {
+  width: 300px;
+  height: 180px;
+  background-image: url(images/CSULogoPrimary1.png);
+  background-size: contain;
+  background-repeat: no-repeat;
 }
 
 .btn {
@@ -26,19 +57,6 @@ body{
     top: 50%;
     transform: translate(-50%, -50%);
      
-}
-
-.red-box img{
-
-    max-width: 80%;
-    max-height: 80%;
-    position: absolute;
-    left: 10px;
-    top: 0;
-    bottom: 0;
-    margin: auto;
-
-
 }
 
 

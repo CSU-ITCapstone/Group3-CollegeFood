@@ -13,14 +13,9 @@
 
     <div>
     {% block content %}
-
         {% for labels in food_label_array %}
         <li><a href = "/searchFood/returnedFood/foodMeasures?clickedFood={{labels}}">{{labels}}</a></li>
         {% endfor %}
-
-
-
-
     {% endblock %}
     </div>
 
