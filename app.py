@@ -8,8 +8,7 @@ from flask import Flask, render_template, request, redirect
 import json
 from flatten_json import flatten
 # for taking the data from the api
-from requests import Session #request,
-import pandas as pd
+from requests import Session 
 
 app = Flask(__name__)
 
