@@ -83,12 +83,6 @@
   perspective: 1000px;
 }
 
-/* #second-card-container {
-  margin-top: 15%;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  margin-bottom: 20px;
-} */
 
 .flip-card {
     background-color: transparent;
@@ -161,9 +155,14 @@
     height: 40px;
   }
 
+  .card-container3 {
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    color: white;
+} 
 
-  /*this centers the text for the last 3 containers */
-  /* .container h4 {
-    text-align: center;
-  } */
+
+
 
