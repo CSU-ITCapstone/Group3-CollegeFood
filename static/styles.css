@@ -18,7 +18,7 @@
 }
 
 .returned-food {
-  
+  top: 0px;
   vertical-align: middle;
   line-height: 1;
   margin: auto;
@@ -34,7 +34,7 @@
 
 .justify {
   display: flex;
-
+  justify-content: space-between;
 }
 
 .red-box{
